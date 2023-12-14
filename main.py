@@ -19,17 +19,20 @@ def auto_func(app, card):
 
 # The templates for these cards can be found in pypercard.html.
 cards = [
-    Card("card1", auto_advance=10, transition="card2"),
-    Card("card2", auto_advance=20, transition=auto_func),
-    Card("card3", auto_advance=5, transition="card1"),
+    Card("card1", ),
+    Card("card2", ),
+    Card("card3", ),
 ]
 
 
 # Create the app while ensuring the counter is reset.
 carousel_app = App(
-    name="PyperCard carousel", datastore={"counter": 0}, cards=cards
+    name="PyperCard carousel", cards=cards
 )
 
+@carousel_app.transition("card1", "click", "next")
+def go_next(app, card):
+    return "card2"
 
 @carousel_app.transition("card2", "click", "reset")
 def reset(app, card):
